@@ -67,6 +67,32 @@ We provide a generator script \texttt{python/true\_string\_collision.py} that en
 python3 python/true_string_collision.py --max-m 200 --max-n 200 --list-first 20
 \end{lstlisting}
 
+\section{Empirical residue profiles}
+We report residue distributions among distinct outputs of \(f\) and small-prime divisibility counts, produced by:\\
+\texttt{python3 python/true\_string\_collision.py --max-m 120 --max-n 120 --mods 3,4,8 --divisible-by 2,3,5,7,11}
+
+For \(m,n\le 120\) (distinct outputs = 5854), the residue counts were:
+\begin{center}
+\begin{tabular}{l|rrrrrrrr}
+Mod & r0 & r1 & r2 & r3 & r4 & r5 & r6 & r7 \\
+\hline
+3 & 1513 & 2859 & 1482 & -- & -- & -- & -- & -- \\
+4 & 1491 & 1457 & 1452 & 1454 & -- & -- & -- & -- \\
+8 & 743 & 729 & 728 & 727 & 748 & 728 & 724 & 727 \\
+\end{tabular}
+\end{center}
+
+Divisibility among distinct outputs (same run):
+\begin{center}
+\begin{tabular}{l|rrrrr}
+Prime & 2 & 3 & 5 & 7 & 11 \\
+\hline
+Count & 2943 & 1513 & 1018 & 759 & 503 \\
+\end{tabular}
+\end{center}
+
+These profiles are parameter-dependent and intended as empirical summaries to guide further analysis.
+
 \section{Discussion}
 The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites. Lemma~\ref{lem:mod3} explains that no simple modulo-3 obstruction limits the image to two residue classes; all three occur.
 
