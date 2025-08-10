@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{geometry}
+\usepackage{graphicx}
 \geometry{margin=1in}
 
 \title{The True String \(T\): A Collision-Zero Encoding via \(f(m,n)=4+3m+3n+2mn\)}
@@ -92,6 +93,14 @@ Count & 2943 & 1513 & 1018 & 759 & 503 \\
 \end{center}
 
 These profiles are parameter-dependent and intended as empirical summaries to guide further analysis.
+
+\subsection*{Figures}
+If generated via the plotting script, figures are saved under \texttt{fig/}. For example (for \(m,n\le 120\)):
+\begin{center}
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_3.png}\\
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_4.png}\\
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_8.png}
+\end{center}
 
 \section{Factorization identity and coverage}
 Define \(a=m+1\) and \(b=n+1\). Then
