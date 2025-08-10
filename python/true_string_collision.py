@@ -2,7 +2,7 @@
 import sys
 import argparse
 import math
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 
 try:
     import sympy as sp
@@ -52,24 +52,30 @@ def summarize(counts: Dict[int, int]) -> Tuple[int, int, int, int]:
     return total, collisions, unique_primes, unique_nonprimes
 
 
-def mod3_distribution(counts: Dict[int, int]) -> Tuple[int, int, int]:
-    # among distinct outputs (keys of counts)
-    r0 = r1 = r2 = 0
+def mod_distribution(counts: Dict[int, int], modulus: int) -> List[int]:
+    buckets = [0] * modulus
     for x in counts.keys():
-        r = x % 3
-        if r == 0:
-            r0 += 1
-        elif r == 1:
-            r1 += 1
-        else:
-            r2 += 1
-    return r0, r1, r2
+        buckets[x % modulus] += 1
+    return buckets
+
+
+def small_prime_divisibility(counts: Dict[int, int], primes: List[int]) -> Dict[int, int]:
+    result: Dict[int, int] = {}
+    for p in primes:
+        c = 0
+        for x in counts.keys():
+            if x % p == 0:
+                c += 1
+        result[p] = c
+    return result
 
 
 def main():
     ap = argparse.ArgumentParser(description="Generate collision-zero True String counts for f(m,n)=4+3m+3n+2mn")
     ap.add_argument("--max-m", type=int, default=200, help="Maximum m")
     ap.add_argument("--max-n", type=int, default=200, help="Maximum n")
+    ap.add_argument("--mods", type=str, default="3,4,8", help="Comma-separated moduli for residue analysis (e.g. 3,4,8,5)")
+    ap.add_argument("--divisible-by", type=str, default="2,3,5,7,11", help="Comma-separated small primes for divisibility counts")
     ap.add_argument("--list-first", type=int, default=0, help="List first K sorted entries with (value, count)")
     args = ap.parse_args()
 
@@ -82,8 +88,24 @@ def main():
     print(f"Unique primes               : {unique_primes}")
     print(f"Unique non-primes           : {unique_nonprimes}")
 
-    r0, r1, r2 = mod3_distribution(counts)
-    print(f"Modulo 3 distribution among distinct outputs: r0={r0}, r1={r1}, r2={r2}")
+    # Residue distributions
+    try:
+        mod_list = [int(s) for s in args.mods.split(',') if s.strip()]
+    except Exception:
+        mod_list = [3, 4, 8]
+    for m in mod_list:
+        buckets = mod_distribution(counts, m)
+        bucket_str = ", ".join(f"r{r}={buckets[r]}" for r in range(len(buckets)))
+        print(f"Modulo {m} distribution among distinct outputs: {bucket_str}")
+
+    # Small prime divisibility among distinct outputs
+    try:
+        divisors = [int(s) for s in args.divisible_by.split(',') if s.strip()]
+    except Exception:
+        divisors = [2, 3, 5, 7, 11]
+    div_stats = small_prime_divisibility(counts, divisors)
+    for p in divisors:
+        print(f"Divisible by {p}: {div_stats.get(p, 0)}")
 
     if args.list_first > 0:
         items = sorted(counts.items())[:args.list_first]
