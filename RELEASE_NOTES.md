@@ -1,4 +1,4 @@
-# Release v0.1.0 — True String (F/g forms), Proofs, and Reproducibility
+# Release v1.0.2 — True String (F/g forms), Proofs, and Reproducibility
 
 Highlights
 - Rigorous theorems: factorization 2F/g+1, full coverage of odd composites, ordered and unordered multiplicity formulas
