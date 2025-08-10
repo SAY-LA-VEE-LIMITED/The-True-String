@@ -1,0 +1,16 @@
+{
+  "title": "The True String: Collision-Zero Encodings, Proofs, and Reproducibility",
+  "upload_type": "publication",
+  "publication_type": "report",
+  "creators": [
+    {"name": "Christensen, Gabriel Neal", "affiliation": "Independent"},
+    {"name": "Christensen, Noah James", "affiliation": "Independent"}
+  ],
+  "description": "Rigorous parameterizations of odd composites via quadratic forms (F/g), multiplicity formulas, code and LaTeX sources, and reproducible experiments. RH content is empirical only.",
+  "license": "other-open",
+  "keywords": ["number theory", "primes", "composites", "quadratic forms", "reproducibility"],
+  "related_identifiers": [
+    {"relation": "isSupplementTo", "identifier": "https://github.com/<your-org-or-user>/<your-repo>"}
+  ],
+  "notes": "Code: MIT; Docs/figures: CC BY-NC-SA 4.0"
+}
