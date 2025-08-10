@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1035234576.svg)](https://doi.org/10.5281/zenodo.16790855)
+
 Dual-license:
 - Code: MIT (see LICENSE-CODE)
 - Docs/figures: CC BY-NC-SA 4.0 (see LICENSE-DOCS)
@@ -14,6 +16,9 @@ Features:
 - Direct per-index formula test (`T_from_formula`)
 - Fully cross-platform with CMake
 - Automated build & test with GitHub Actions
+
+## DOI
+- `10.5281/zenodo.16790855` — see badge above and Zenodo record
 
 ## Build
 ```bash

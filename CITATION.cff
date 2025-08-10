@@ -6,6 +6,17 @@ authors:
   - family-names: Christensen
     given-names: Noah James
 date-released: 2025-08-10
-message: If you use this work, please cite it using the metadata below. Once a DOI is minted via Zenodo, add it to this file.
+message: If you use this work, please cite it using the metadata below.
 license: MIT
 repository-code: https://github.com/your-org-or-user/your-repo
+doi: 10.5281/zenodo.16790855
+preferred-citation:
+  type: dataset
+  title: The True String: Collision-Zero Encodings, Proofs, and Reproducibility
+  authors:
+    - family-names: Christensen
+      given-names: Gabriel Neal
+    - family-names: Christensen
+      given-names: Noah James
+  year: 2025
+  doi: 10.5281/zenodo.16790855

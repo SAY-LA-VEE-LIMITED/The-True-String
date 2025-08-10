@@ -10,7 +10,7 @@
   "license": "other-open",
   "keywords": ["number theory", "primes", "composites", "quadratic forms", "reproducibility"],
   "related_identifiers": [
-    {"relation": "isSupplementTo", "identifier": "https://github.com/<your-org-or-user>/<your-repo>"}
+    {"relation": "isIdenticalTo", "identifier": "https://doi.org/10.5281/zenodo.16790855"}
   ],
   "notes": "Code: MIT; Docs/figures: CC BY-NC-SA 4.0"
 }
