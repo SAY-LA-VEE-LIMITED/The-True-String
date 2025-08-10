@@ -16,3 +16,13 @@ Features:
 cmake -B build
 cmake --build build
 ./build/spectral_t_demo
+
+
+Copyright © 2025 Gabriel Neal Christensen and Noah Christensen
+All rights reserved.
+
+Authors:
+- Gabriel Neal Christensen
+- Noah Christensen
+
+This repository contains original work including mathematical formulations, proofs, and algorithm implementations created by the above authors.
