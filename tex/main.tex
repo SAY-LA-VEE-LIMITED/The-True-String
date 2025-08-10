@@ -23,6 +23,7 @@
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 \begin{abstract}
 We study the odd-prime indicator sequence defined on indices of odd integers, present a progression-based characterization of odd composites, and explore spectral transforms of the resulting indicator. We organize definitions, statements, and verifiable computations to facilitate independent checking. Empirical sections include code-driven tests and spectral numerics. Formal proof details are outlined with assumptions and dependencies made explicit.
@@ -46,7 +47,7 @@ For an odd prime \(p\ge 3\) and \(m\in\mathbb{N}_0\), define
 \end{definition}
 The map \(n \mapsto o_n=2n+1\) identifies indices with odd integers.
 
-\begin{lemma}[Complete cover of odd composites]
+\begin{lemma}[Complete cover of odd composites]\label{lem:cover}
 Every odd composite \(k\ge 9\) has the form \(k = C_p(m)\) for some odd prime \(p\ge 3\) and \(m\in\mathbb{N}_0\). Equivalently, its index \(n\) satisfies \(n = n_p(m)\).
 \end{lemma}
 \begin{proof}
@@ -59,7 +60,7 @@ We provide two equivalent constructions of \(T\) that are implemented in the acc
   \item Odd-only sieve up to \(2N+1\), producing exact \(T[0..N]\).
   \item Progression marking: for each odd prime \(p\ge3\), mark indices \(n=n_p(m)\) as composite.
 \end{itemize}
-\begin{theorem}[Equivalence up to a bound]
+\begin{theorem}[Equivalence up to a bound]\label{thm:equiv}
 For any \(N\ge 0\), the odd-only sieve and progression-marking methods compute identical arrays \(T[0..N]\).
 \end{theorem}
 \noindent This is verified by code for large \(N\) and is provable by standard properties of sieves and least prime divisors.
@@ -71,6 +72,17 @@ Counting odd integers up to \(x\) yields the identity
 \]
 with boundary correction at \(x=2\). This is immediate from counting odds and subtracting composites.
 
+\section{Proposed parametric form and verification plan}\label{sec:param}
+We consider the bivariate integer form
+\[
+F(m,n) = 4 + 3m + 3n + 2mn, \quad m,n\in\mathbb{N}_0.
+\]
+\begin{claim}[Parametric coverage of odd composites]
+Every odd composite \(k\ge k_0\) can be represented as \(k = F(m,n)\) for some \(m,n\in\mathbb{N}_0\) satisfying the necessary parity constraint.
+\end{claim}
+This statement is investigated computationally in the accompanying code by testing, for each odd composite \(k\) up to a large bound, whether 
+\(n = \frac{k-3m-4}{2m+3}\) is a nonnegative integer for some \(m\ge 0\).
+
 \section{Spectral considerations}
 Define the distribution
 \[
@@ -81,8 +93,9 @@ We compare numerically the magnitude of finite truncations of this series to fre
 \section{Empirical validation and reproducibility}
 All experiments are contained in the repository under \texttt{python/}. We include:
 \begin{enumerate}[leftmargin=*]
-  \item Exact agreement tests between sieve and progression methods for \(T\) up to large \(N\).
+  \item Exact agreement tests between sieve and progression methods for \(T\) up to large \(N\) (Theorem~\ref{thm:equiv}).
   \item Cross-checks against a trusted primality oracle for spot verification.
+  \item Tests of parametric coverage for \(F(m,n)\) (Section~\ref{sec:param}).
   \item Spectral probes comparing selected frequencies with ordinates of zeta zeros.
 \end{enumerate}
 
