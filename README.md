@@ -1,7 +1,6 @@
-Copyright © 2025 Gabriel Neal Christensen and Noah Christensen
-All rights reserved.
-
-Permission is NOT granted to copy, modify, merge, publish, distribute, sublicense, or sell copies of this software or associated materials, in whole or in part, without express written permission from the authors.
+Dual-license:
+- Code: MIT (see LICENSE-CODE)
+- Docs/figures: CC BY-NC-SA 4.0 (see LICENSE-DOCS)
 
 # The-True-String
 WE Solved Prime Numbers
@@ -41,8 +40,9 @@ python3 python/verify_unordered_multiplicity.py 100000
 python3 python/plot_residues.py --max-m 120 --max-n 120 --mods 3,4,8 --out-dir fig
 ```
 
-Copyright © 2025 Gabriel Neal Christensen and Noah Christensen
-All rights reserved.
+Dual-license:
+- Code: MIT (see LICENSE-CODE)
+- Docs/figures: CC BY-NC-SA 4.0 (see LICENSE-DOCS)
 
 Authors:
 - Gabriel Neal Christensen
