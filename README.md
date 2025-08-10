@@ -1,3 +1,8 @@
+Copyright © 2025 Gabriel Neal Christensen and Noah Christensen
+All rights reserved.
+
+Permission is NOT granted to copy, modify, merge, publish, distribute, sublicense, or sell copies of this software or associated materials, in whole or in part, without express written permission from the authors.
+
 # The-True-String
 WE Solved Prime Numbers
 # spectral-t
