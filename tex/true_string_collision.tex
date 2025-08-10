@@ -1,0 +1,71 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{The True String \(T\): A Collision-Zero Encoding via \(f(m,n)=4+3m+3n+2mn\)}
+\author{Gabriel Christensen}
+\date{\today}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}{Theorem}[section]
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+We define a collision-zero mapping based on the bivariate form \(f(m,n)=4+3m+3n+2mn\) over nonnegative integers and study the resulting set-valued structure. We formalize the encoding, analyze zero vs. unique occurrences, and provide computational methods to verify properties. We discuss relationships to classical prime distributions. This model is empirical and does not constitute a proof of the Riemann Hypothesis.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+We consider a self-referential encoding in which repeated images cancel to zero. The purpose is to study multiplicity and prime occurrences within the image of \(f\), not to claim full coverage of all integers.
+
+\section{Preliminaries and Definitions}
+\begin{definition}[Generating form]\label{def:f}
+For \(m,n\in\mathbb{N}_0\) define
+\[
+ f(m,n) = 4 + 3m + 3n + 2mn.
+\]
+\end{definition}
+
+\begin{definition}[Collision-zero structure \(T\)]\label{def:T}
+Initialize an empty map \(T\). For each \((m,n)\), compute \(x = f(m,n)\).
+\begin{itemize}
+    \item If \(x\notin T\), set \(T[x]=x\).
+    \item If \(x\in T\), set \(T[x]=0\) to indicate a collision.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Zeros and prime elements]
+Elements with \(T[x]=0\) are \emph{zeros} (collisions). Elements with \(T[x]=x\) and \(x\) prime are \emph{prime elements}.
+\end{definition}
+
+\section{Basic properties}
+\begin{lemma}[Collision encoding]\label{lem:collision}
+For any \(x\), \(T[x]=0\) iff there exist distinct pairs \((m_1,n_1)\ne(m_2,n_2)\) with \(f(m_1,n_1)=f(m_2,n_2)=x\).
+\end{lemma}
+
+\begin{lemma}[Sparse image]\label{lem:sparse}
+The image of \(f\) is a strict subset of \(\mathbb{N}\). Many odd composites are not represented by \(f\). This is readily verified computationally.
+\end{lemma}
+
+\section{Computational methods}
+We provide a generator script \texttt{python/true\_string\_collision.py} that enumerates values of \(f\) over a rectangle \([0,M]\times[0,N]\), counts collisions, and classifies unique outputs as prime/non-prime.
+
+\begin{lstlisting}[language=bash,caption=Example usage]
+python3 python/true_string_collision.py --max-m 200 --max-n 200 --list-first 20
+\end{lstlisting}
+
+\section{Discussion}
+The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites.
+
+\section{Conclusion}
+We formalized and implemented the collision-zero encoding for \(f(m,n)\). The model provides a lens on multiplicity but does not, as formulated, prove statements about the zeros of \(\zeta(s)\).
+
+\end{document}
