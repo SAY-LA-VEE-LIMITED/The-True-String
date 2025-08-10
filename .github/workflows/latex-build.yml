@@ -1,0 +1,21 @@
+name: LaTeX Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install TeX Live minimal
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-binaries
+      - name: Build true_string_collision.pdf
+        run: |
+          make paper
+      - name: Build main.pdf
+        run: |
+          make paper-main

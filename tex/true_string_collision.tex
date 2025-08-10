@@ -48,6 +48,9 @@ Initialize an empty map \(T\). For each \((m,n)\), compute \(x = f(m,n)\).
 Elements with \(T[x]=0\) are \emph{zeros} (collisions). Elements with \(T[x]=x\) and \(x\) prime are \emph{prime elements}.
 \end{definition}
 
+\subsection*{Notation}
+We write \(\mathbb{N}_0=\{0,1,2,\dots\}\). For an odd integer \(c\ge 1\), let \(d_{\mathrm{odd}}(c)\) denote the number of odd divisors of \(c\) (including \(1\) and \(c\)).
+
 \section{Basic properties}
 \begin{lemma}[Collision encoding]\label{lem:collision}
 For any \(x\), \(T[x]=0\) iff there exist distinct pairs \((m_1,n_1)\ne(m_2,n_2)\) with \(f(m_1,n_1)=f(m_2,n_2)=x\).
@@ -57,9 +60,9 @@ For any \(x\), \(T[x]=0\) iff there exist distinct pairs \((m_1,n_1)\ne(m_2,n_2)
 For all \(m,n\in\mathbb{N}_0\), \(f(m,n) \equiv 1 + 2mn \pmod{3}\). As \(mn\) ranges over \(\{0,1,2\}\pmod{3}\), the image attains all residue classes \(0,1,2\pmod{3}\). In particular, values congruent to \(2\pmod{3}\) occur when, e.g., \(m\equiv 1\) and \(n\equiv 2\) (or vice versa) modulo 3.
 \end{lemma}
 
-\begin{lemma}[Sparse image]\label{lem:sparse}
-The image of \(f\) is a strict subset of \(\mathbb{N}\). Many odd composites are not represented by \(f\). This is readily verified computationally.
-\end{lemma}
+\begin{remark}[Empirical sparseness]\label{rem:sparse}
+The image of \(f\) is a strict subset of \(\mathbb{N}\), and empirical data suggest nontrivial distributional structure (see Section on residue profiles). We do not make density claims here.
+\end{remark}
 
 \section{Computational methods}
 We provide a generator script \texttt{python/true\_string\_collision.py} that enumerates values of \(f\) over a rectangle \([0,M]\times[0,N]\), counts collisions, and classifies unique outputs as prime/non-prime.
@@ -124,6 +127,13 @@ Write \(c=uv\) with \(u,v\) odd integers and \(3\le u\le v\). Set \(a=(u-1)/2\),
 Let \(x=F(m,n)\) and \(c=2x+1\). The number of preimages \((m,n)\) mapping to \(x\) equals the number of ordered odd factor pairs \((u,v)\) of \(c\) with \(u,v\ge 3\). In particular, squares \(c=u^2\) contribute a single ordered pair \((u,u)\), while non-squares contribute pairs \((u,v)\) and \((v,u)\), causing collisions under the cancellation scheme.
 \end{corollary}
 
+\begin{corollary}[Preimage count via odd divisors]\label{cor:odddiv}
+For odd composite \(c\ge 9\), the number of ordered preimages \((m,n)\) with \(2F(m,n)+1=c\) equals \(d_{\mathrm{odd}}(c) - 2\).
+\end{corollary}
+\begin{proof}
+Odd divisors \(u\) of \(c\) correspond to ordered pairs \((u, c/u)\). Excluding \(u=1\) and \(u=c\) leaves \(d_{\mathrm{odd}}(c)-2\) ordered pairs with components \(\ge 3\), each giving a unique \((m,n)\).
+\end{proof}
+
 \section{Related work}
 The representation \(2F(m,n)+1=(2m+3)(2n+3)\) aligns with the classical parameterization of odd composites as products of odd integers. Standard references in multiplicative number theory (e.g., \cite{hardywright2008, montgomery2007}) discuss factorization structures and their combinatorics. Our contribution here is to fix a specific affine reparametrization \((m,n)\mapsto (2m+3,2n+3)\) and to study collision behavior under a cancellation rule tied to multiplicity.
 
@@ -156,6 +166,9 @@ python3 python/true_string_collision.py --max-m 120 --max-n 120 \
 
 # Coverage test: every odd composite c >= 9 is 2*F(m,n)+1
 python3 python/test_parametric_odd_composites.py 200000
+
+# Multiplicity test: compare preimage counts to d_odd(c)-2 on a sample
+python3 python/verify_multiplicity.py 200000
 \end{lstlisting}
 
 \bibliographystyle{plain}
