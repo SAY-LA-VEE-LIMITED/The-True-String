@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Xlinker --dependency-file=CMakeFiles/prime_spectrum.dir/link.d CMakeFiles/prime_spectrum.dir/src/prime_spectrum.cpp.o -o prime_spectrum

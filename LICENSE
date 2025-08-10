@@ -1,9 +1,8 @@
+Dual-license overview
+
+- Code (all files under python/, src/, and top-level .cpp/.py unless noted): MIT License. See LICENSE-CODE.
+- Documentation, papers, figures, and LaTeX sources under tex/ and fig/: Creative Commons BY-NC-SA 4.0. See LICENSE-DOCS.
+
+If a file header specifies a different license, that header prevails for that file.
+
 Copyright © 2025 Gabriel Neal Christensen and Noah Christensen
-All rights reserved.
-
-Permission is NOT granted to copy, modify, merge, publish, distribute,
-sublicense, or sell copies of this software or associated materials,
-in whole or in part, without express written permission from the authors.
-
-The authors reserve all intellectual property rights to the concepts,
-mathematical proofs, and code contained in this repository.

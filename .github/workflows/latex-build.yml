@@ -1,0 +1,42 @@
+name: LaTeX Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install TeX Live minimal
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-binaries
+      - name: Install Python deps for plots
+        run: |
+          sudo apt-get install -y python3-pip
+          python3 -m pip install --upgrade pip
+          pip3 install matplotlib
+      - name: Build PDFs and dist
+        run: |
+          make plots || true
+          make paper
+          make paper-main || true
+          make paper-unordered || true
+          make dist || true
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDFs
+          path: |
+            tex/true_string_collision.pdf
+            tex/main.pdf
+            tex/true_string_unordered.pdf
+          if-no-files-found: warn
+      - name: Upload dist bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-bundle
+          path: dist/release.tar.gz
+          if-no-files-found: ignore

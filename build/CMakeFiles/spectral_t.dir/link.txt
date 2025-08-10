@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Xlinker --dependency-file=CMakeFiles/spectral_t.dir/link.d CMakeFiles/spectral_t.dir/spectral_t.cpp.o -o spectral_t
