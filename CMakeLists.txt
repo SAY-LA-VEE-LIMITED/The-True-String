@@ -4,16 +4,11 @@ project(spectral_t LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Core library
-add_library(spectral_t src/spectral_t.cpp)
-target_include_directories(spectral_t PUBLIC include)
+# Executable from top-level spectral_t.cpp (contains main)
+add_executable(spectral_t spectral_t.cpp)
 
-# Example executable
-add_executable(spectral_t_demo src/spectral_t.cpp)
-target_link_libraries(spectral_t_demo PRIVATE spectral_t)
+# Executable from src/prime_spectrum.cpp (simple T generator)
+add_executable(prime_spectrum src/prime_spectrum.cpp)
 
-# Tests
+# Enable testing (no tests currently defined)
 enable_testing()
-add_executable(test_spectral_t tests/test_spectral_t.cpp)
-target_link_libraries(test_spectral_t PRIVATE spectral_t)
-add_test(NAME spectral_t_test COMMAND test_spectral_t)

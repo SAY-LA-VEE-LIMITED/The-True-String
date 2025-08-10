@@ -1,0 +1,5 @@
+/workspace/build/CMakeFiles/spectral_t.dir
+/workspace/build/CMakeFiles/prime_spectrum.dir
+/workspace/build/CMakeFiles/test.dir
+/workspace/build/CMakeFiles/edit_cache.dir
+/workspace/build/CMakeFiles/rebuild_cache.dir

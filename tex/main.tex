@@ -1,0 +1,101 @@
+% !TEX TS-program = pdflatex
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{The True String: Combinatorial Structure of Odd Primes and Spectral Connections}
+\author{Noah Christensen \and Gabriel Neal Christensen}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study the odd-prime indicator sequence defined on indices of odd integers, present a progression-based characterization of odd composites, and explore spectral transforms of the resulting indicator. We organize definitions, statements, and verifiable computations to facilitate independent checking. Empirical sections include code-driven tests and spectral numerics. Formal proof details are outlined with assumptions and dependencies made explicit.
+\end{abstract}
+
+\section{Introduction}
+Let \(o_n = 2n+1\) denote the \(n\)-th odd integer for \(n \in \mathbb{N}_0\). Define the indicator sequence \(T[n]\) by
+\[
+T[n] = \begin{cases}1 & \text{if } o_n \text{ is prime},\\ 0 & \text{otherwise.}\end{cases}
+\]
+We develop a progression-based description for odd composites, an exact odd-only sieve computing \(T[0..N]\), and an experimental spectral analysis of \(T\).
+
+\paragraph{Contributions.} (i) A cleaned, checkable formulation of composite-generating progressions; (ii) Reproducible code for exact computation of \(T\); (iii) Statistical and spectral experiments with transparent limitations.
+
+\section{Definitions}
+\begin{definition}[Composite-generating progressions]
+For an odd prime \(p\ge 3\) and \(m\in\mathbb{N}_0\), define
+\[
+ C_p(m) = 3p + 2pm, \quad n_p(m) = \frac{3p-1}{2} + pm.
+\]
+\end{definition}
+The map \(n \mapsto o_n=2n+1\) identifies indices with odd integers.
+
+\begin{lemma}[Complete cover of odd composites]
+Every odd composite \(k\ge 9\) has the form \(k = C_p(m)\) for some odd prime \(p\ge 3\) and \(m\in\mathbb{N}_0\). Equivalently, its index \(n\) satisfies \(n = n_p(m)\).
+\end{lemma}
+\begin{proof}
+Let \(p\) be the smallest prime divisor of odd composite \(k\). Then \(k=pr\) with \(r\ge p\) odd. Write \(r=2m+3\) for some \(m\in\mathbb{N}_0\), yielding \(k=3p+2pm=C_p(m)\). The index identity follows since \(k=2n+1\Rightarrow n=(k-1)/2\).
+\end{proof}
+
+\section{Exact computation of T}
+We provide two equivalent constructions of \(T\) that are implemented in the accompanying code.
+\begin{itemize}[leftmargin=*]
+  \item Odd-only sieve up to \(2N+1\), producing exact \(T[0..N]\).
+  \item Progression marking: for each odd prime \(p\ge3\), mark indices \(n=n_p(m)\) as composite.
+\end{itemize}
+\begin{theorem}[Equivalence up to a bound]
+For any \(N\ge 0\), the odd-only sieve and progression-marking methods compute identical arrays \(T[0..N]\).
+\end{theorem}
+\noindent This is verified by code for large \(N\) and is provable by standard properties of sieves and least prime divisors.
+
+\section{Prime counting identity}
+Counting odd integers up to \(x\) yields the identity
+\[
+\pi(x) = \Big\lfloor \tfrac{x}{2} \Big\rfloor - \sum_{n\le \frac{x-1}{2}} (1-T[n]) + O(1),
+\]
+with boundary correction at \(x=2\). This is immediate from counting odds and subtracting composites.
+
+\section{Spectral considerations}
+Define the distribution
+\[
+\widehat{T}(\xi) = \sum_{n\ge1} T[n] e^{-2\pi i (2n+1)\xi}.
+\]
+We compare numerically the magnitude of finite truncations of this series to frequencies derived from ordinates \(\gamma_k\) of nontrivial zeros \(\tfrac{1}{2}+i\gamma_k\) of \(\zeta(s)\). The mapping between continuous frequencies and discrete transforms is made explicit in the code; empirical observations are not a proof but are reproducible.
+
+\section{Empirical validation and reproducibility}
+All experiments are contained in the repository under \texttt{python/}. We include:
+\begin{enumerate}[leftmargin=*]
+  \item Exact agreement tests between sieve and progression methods for \(T\) up to large \(N\).
+  \item Cross-checks against a trusted primality oracle for spot verification.
+  \item Spectral probes comparing selected frequencies with ordinates of zeta zeros.
+\end{enumerate}
+
+\section{Limitations and open questions}
+Spectral alignment experiments suggest structure but do not constitute a proof regarding the zero locations of \(\zeta(s)\). We delineate what is empirically observed versus what is rigorously proven.
+
+\section*{Acknowledgments}
+We thank all reviewers and tool authors of open-source libraries used in the experiments.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+\bibitem{IwaniecKowalski} H. Iwaniec and E. Kowalski, Analytic Number Theory, AMS Colloquium Publications.
+\bibitem{Montgomery} H. L. Montgomery, Ten Lectures on the Interface Between Analytic Number Theory and Harmonic Analysis.
+\end{thebibliography}
+
+\end{document}
