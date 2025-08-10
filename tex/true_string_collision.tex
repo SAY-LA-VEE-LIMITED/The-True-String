@@ -19,7 +19,7 @@
 
 \maketitle
 \begin{abstract}
-We define a collision-zero mapping based on the bivariate form \(f(m,n)=4+3m+3n+2mn\) over nonnegative integers and study the resulting set-valued structure. We formalize the encoding, analyze zero vs. unique occurrences, and provide computational methods to verify properties. We discuss relationships to classical prime distributions. This model is empirical and does not constitute a proof of the Riemann Hypothesis.
+We define a collision-zero mapping based on the bivariate form \(f(m,n)=4+3m+3n+2mn\) over nonnegative integers and study the resulting set-valued structure. We formalize the encoding, analyze zero vs. unique occurrences, and provide computational methods to verify properties. We discuss relationships to classical prime distributions. This model is empirical and does not constitute a proof of the Riemann Hypothesis; any RH-related content is observational only.
 \end{abstract}
 
 \tableofcontents
@@ -99,11 +99,26 @@ These profiles are parameter-dependent and intended as empirical summaries to gu
 
 \subsection*{Figures}
 If generated via the plotting script, figures are saved under \texttt{fig/}. For example (for \(m,n\le 120\)):
-\begin{center}
-\includegraphics[width=0.7\linewidth]{../fig/residues_mod_3.png}\\
-\includegraphics[width=0.7\linewidth]{../fig/residues_mod_4.png}\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_3.png}
+\caption{Residue distribution modulo 3 among distinct outputs for \(m,n\le 120\).}
+\label{fig:mod3}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_4.png}
+\caption{Residue distribution modulo 4 among distinct outputs for \(m,n\le 120\).}
+\label{fig:mod4}
+\end{figure}
+
+\begin{figure}[h]
+\centering
 \includegraphics[width=0.7\linewidth]{../fig/residues_mod_8.png}
-\end{center}
+\caption{Residue distribution modulo 8 among distinct outputs for \(m,n\le 120\).}
+\label{fig:mod8}
+\end{figure}
 
 \section{Factorization identity and coverage}
 Define \(a=m+1\) and \(b=n+1\). Then
@@ -138,7 +153,7 @@ Odd divisors \(u\) of \(c\) correspond to ordered pairs \((u, c/u)\). Excluding 
 The representation \(2F(m,n)+1=(2m+3)(2n+3)\) aligns with the classical parameterization of odd composites as products of odd integers. Standard references in multiplicative number theory (e.g., \cite{hardywright2008, montgomery2007}) discuss factorization structures and their combinatorics. Our contribution here is to fix a specific affine reparametrization \((m,n)\mapsto (2m+3,2n+3)\) and to study collision behavior under a cancellation rule tied to multiplicity.
 
 \section{Discussion}
-The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites. Lemma~\ref{lem:mod3} explains that no simple modulo-3 obstruction limits the image to two residue classes; all three occur.
+The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{rem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites. Lemma~\ref{lem:mod3} explains that no simple modulo-3 obstruction limits the image to two residue classes; all three occur. Empirical comparisons to zero statistics may be framed against classical pair-correlation heuristics (e.g., \cite{montgomery1973}) and large-scale computations (e.g., \cite{odlyzko1987}).
 
 \subsection*{Limitations}
 - The collision rule is a modeling device; it compresses multiplicity but does not, by itself, imply analytic statements about primes or zeta zeros.

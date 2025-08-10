@@ -33,8 +33,11 @@ make verify    # runs coverage test up to 200k
 
 ## Python quickstart
 ```bash
+pip3 install --break-system-packages -r python/requirements.txt
 python3 python/true_string_collision.py --max-m 120 --max-n 120 --mods 3,4,8 --divisible-by 2,3,5,7,11
 python3 python/test_parametric_odd_composites.py 200000
+python3 python/verify_multiplicity.py 200000
+python3 python/verify_unordered_multiplicity.py 100000
 python3 python/plot_residues.py --max-m 120 --max-n 120 --mods 3,4,8 --out-dir fig
 ```
 
