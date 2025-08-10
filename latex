@@ -1,0 +1,141 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{The True String \(T\): A Self-Referential Structure Encoding Prime Distribution and Insights Toward the Riemann Hypothesis}
+\author{Gabriel Christensen}
+\date{\today}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}{Theorem}[section]
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+This paper introduces the \emph{True String} \(T\), defined via the function \(f(m,n) = 4 + 3m + 3n + 2mn\) over non-negative integers \(m,n\), with a unique collision-zero encoding scheme. We formalize the structure, analyze its zero and prime element distributions, and present computational methods to verify properties of \(T\). We explore potential connections to prime distributions and implications related to the Riemann Hypothesis.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Brief introduction to the significance of prime distributions and the Riemann Hypothesis. Motivation for introducing the True String \(T\) and its self-referential encoding.
+
+\section{Preliminaries and Definitions}
+\begin{definition}[True String Generation Function]
+Define 
+\[
+f : \mathbb{Z}_{\geq 0} \times \mathbb{Z}_{\geq 0} \to \mathbb{Z}, \quad
+f(m,n) = 4 + 3m + 3n + 2mn.
+\]
+\end{definition}
+
+\begin{definition}[True String Set \(T\)]
+Initialize an empty map \(T\). For each \((m,n)\), compute \(x = f(m,n)\).
+\begin{itemize}
+    \item If \(x \notin T\), insert \(T[x] = x\).
+    \item If \(x \in T\), update \(T[x] = 0\) to indicate a collision (duplicate entry).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Zero Elements]
+Elements \(x \in T\) such that \(T[x] = 0\) are called \emph{zeros}. They represent storage nodes where duplicates have been consolidated.
+\end{definition}
+
+\begin{definition}[Prime Elements in \(T\)]
+Elements \(x \in T\) with \(T[x] = x\) and \(x\) prime are called \emph{prime elements}.
+\end{definition}
+
+\section{Lemmas and Theorems}
+\begin{lemma}[Collision Encoding]
+For any \(x \in T\), \(T[x] = 0\) if and only if there exist distinct pairs \((m_1,n_1) \neq (m_2,n_2)\) such that
+\[
+f(m_1,n_1) = f(m_2,n_2) = x.
+\]
+\end{lemma}
+
+\begin{lemma}[Distribution of Zero Elements]
+Zeros occur precisely at integers with multiple pre-images under \(f\), encoding the multiplicity structure.
+\end{lemma}
+
+\begin{lemma}[Prime Density]
+The density of prime elements within \(T\) in a range \([1,N]\) reflects prime distribution modulated by the structure of \(f\).
+\end{lemma}
+
+\begin{theorem}[Encoding Number-Theoretic Structure]
+The True String \(T\), constructed with collision-zero encoding, forms a compressed self-referential data structure encoding multiplicity and prime distribution, potentially capturing properties linked to the zeros of the Riemann zeta function.
+\end{theorem}
+
+\section{Computational Methods}
+\subsection{Algorithmic Generation of \(T\)}
+We implement the True String \(T\) with persistence to avoid redundant computations:
+
+\begin{lstlisting}[language=Python, caption=Python code to generate and store the True String \(T\) with collision-zero encoding and checkpointing.]
+import os
+import pickle
+from sympy import isprime
+
+class TrueStringGenerator:
+    def __init__(self, state_file='true_string_state.pkl'):
+        self.T = {}
+        self.max_m = -1
+        self.max_n = -1
+        self.state_file = state_file
+        self.load_state()
+
+    def f(self, m, n):
+        return 4 + 3*m + 3*n + 2*m*n
+
+    def save_state(self):
+        with open(self.state_file, 'wb') as f:
+            pickle.dump((self.T, self.max_m, self.max_n), f)
+
+    def load_state(self):
+        if os.path.exists(self.state_file):
+            with open(self.state_file, 'rb') as f:
+                self.T, self.max_m, self.max_n = pickle.load(f)
+        else:
+            self.T = {}
+            self.max_m = -1
+            self.max_n = -1
+
+    def generate_up_to(self, target_m, target_n):
+        for m in range(self.max_m + 1, target_m + 1):
+            for n in range(0, target_n + 1):
+                val = self.f(m, n)
+                if val not in self.T:
+                    self.T[val] = val
+                else:
+                    self.T[val] = 0
+            self.max_n = target_n
+            self.max_m = m
+            self.save_state()
+
+    def get_sorted_T(self):
+        return [(k, self.T[k], isprime(k)) for k in sorted(self.T.keys())]
+
+if __name__ == "__main__":
+    generator = TrueStringGenerator()
+    generator.generate_up_to(100, 100)
+    for k, v, prime_flag in generator.get_sorted_T()[:50]:
+        print(f"{k}: {'0 (collision)' if v == 0 else 'prime' if prime_flag else 'unique non-prime'}")
+\end{lstlisting}
+
+\subsection{Analysis and Visualization}
+Discuss how to analyze the zero and prime patterns, compute densities, and compare with classical prime distribution functions.
+
+\section{Discussion}
+Interpretation of results, potential links to the Riemann Hypothesis, and directions for future work.
+
+\section{Conclusion}
+Summary and implications.
+
+\section{References}
+% Add relevant references here, e.g., classical prime number theory, Riemann Hypothesis literature, information theory.
+
+\end{document}
