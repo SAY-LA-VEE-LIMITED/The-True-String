@@ -51,6 +51,18 @@ Elements with \(T[x]=0\) are \emph{zeros} (collisions). Elements with \(T[x]=x\)
 \subsection*{Notation}
 We write \(\mathbb{N}_0=\{0,1,2,\dots\}\). For an odd integer \(c\ge 1\), let \(d_{\mathrm{odd}}(c)\) denote the number of odd divisors of \(c\) (including \(1\) and \(c\)).
 
+\begin{center}
+\begin{tabular}{l l}
+Symbol & Meaning \\
+\hline
+\(\mathbb{N}_0\) & Nonnegative integers \\
+\(f(m,n)\) & \(4+3m+3n+2mn\) \\
+\(F(m,n)\) & Same as \(f\); used in coverage/multiplicity section \\
+\(T[x]\) & Collision-zero value at index \(x\) (0 if repeated) \\
+\(d_{\mathrm{odd}}(c)\) & Number of odd divisors of odd \(c\) \\
+\end{tabular}
+\end{center}
+
 \section{Basic properties}
 \begin{lemma}[Collision encoding]\label{lem:collision}
 For any \(x\), \(T[x]=0\) iff there exist distinct pairs \((m_1,n_1)\ne(m_2,n_2)\) with \(f(m_1,n_1)=f(m_2,n_2)=x\).

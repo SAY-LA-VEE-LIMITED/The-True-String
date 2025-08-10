@@ -49,6 +49,17 @@ T[k]=\begin{cases}k,& r_{un}(k)=1,\\0,& r_{un}(k)\ge 2,\\0,&k\notin g(\mathcal{P
 \subsection*{Notation}
 \(\mathbb{N}_0=\{0,1,2,\dots\}\). For odd \(c\ge 1\), \(d_{\mathrm{odd}}(c)\) is the number of odd divisors of \(c\). We write \(c\) square/non-square to indicate whether \(c\) is a perfect square.
 
+\begin{center}
+\begin{tabular}{l l}
+Symbol & Meaning \\
+\hline
+\(\mathbb{N}_0\) & Nonnegative integers \\
+\(g(m,n)\) & \(4+3m+3n+2mn\) \\
+\(T[k]\) & Collision-zero encoding at value \(k\) (0 if repeated) \\
+\(d_{\mathrm{odd}}(c)\) & Number of odd divisors of odd \(c\) \\
+\end{tabular}
+\end{center}
+
 \section{Rigorous structure}
 \begin{lemma}[Factorization identity]\label{lem:fact}
 For all \(m,n\in\mathbb{N}_0\), \(2g(m,n)+1=(2m+3)(2n+3)\).
@@ -82,6 +93,28 @@ The identity of Lemma~\ref{lem:fact} concerns \(2g+1\), not \(g\) itself. Whethe
 
 \section{Empirical profiles}
 Residue distributions and small-prime divisibility among distinct outputs \(g(\mathcal{P}\cap[0,M]^2)\) can be generated with the provided scripts. Figures (if generated) are placed under \texttt{fig/}.
+
+\subsection*{Figures}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_3.png}
+\caption{Residue distribution modulo 3 among distinct outputs for \(m,n\le 120\).}
+\label{fig:u-mod3}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_4.png}
+\caption{Residue distribution modulo 4 among distinct outputs for \(m,n\le 120\).}
+\label{fig:u-mod4}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{../fig/residues_mod_8.png}
+\caption{Residue distribution modulo 8 among distinct outputs for \(m,n\le 120\).}
+\label{fig:u-mod8}
+\end{figure}
 
 \section{Reproducibility}
 \begin{lstlisting}[language=bash]
