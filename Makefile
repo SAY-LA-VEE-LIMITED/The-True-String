@@ -2,15 +2,18 @@ SHELL := /usr/bin/bash
 
 TEX_DIR := tex
 PAPER   := $(TEX_DIR)/true_string_collision
+PAPER2  := $(TEX_DIR)/main
 BIB     := $(TEX_DIR)/references.bib
 
 PY := python3
 
-.PHONY: all paper clean verify profiles plots
+.PHONY: all paper paper-main clean verify profiles plots dist
 
 all: paper
 
 paper: $(PAPER).pdf
+
+paper-main: $(PAPER2).pdf
 
 $(PAPER).pdf: $(PAPER).tex $(BIB)
 	cd $(TEX_DIR) && pdflatex true_string_collision.tex >/dev/null || true
@@ -18,6 +21,11 @@ $(PAPER).pdf: $(PAPER).tex $(BIB)
 	cd $(TEX_DIR) && pdflatex true_string_collision.tex >/dev/null || true
 	cd $(TEX_DIR) && pdflatex true_string_collision.tex >/dev/null || true
 	@echo "Built $(PAPER).pdf"
+
+$(PAPER2).pdf: $(PAPER2).tex
+	cd $(TEX_DIR) && pdflatex main.tex >/dev/null || true
+	cd $(TEX_DIR) && pdflatex main.tex >/dev/null || true
+	@echo "Built $(PAPER2).pdf"
 
 clean:
 	cd $(TEX_DIR) && rm -f *.aux *.bbl *.blg *.log *.out *.toc *.lof *.lot
@@ -31,3 +39,11 @@ profiles:
 plots:
 	$(PY) python/plot_residues.py --max-m 120 --max-n 120 --mods 3,4,8 --out-dir fig
 	@echo "Plots saved under fig/"
+
+dist: paper paper-main plots
+	mkdir -p dist
+	tar -czf dist/release.tar.gz \
+		tex/true_string_collision.pdf \
+		tex/main.pdf \
+		fig/residues_mod_3.png fig/residues_mod_4.png fig/residues_mod_8.png
+	@echo "Created dist/release.tar.gz"
