@@ -116,7 +116,7 @@ Let \(x=F(m,n)\) and \(c=2x+1\). The number of preimages \((m,n)\) mapping to \(
 \end{corollary}
 
 \section{Related work}
-The representation \(2F(m,n)+1=(2m+3)(2n+3)\) aligns with the classical parameterization of odd composites as products of odd integers. Standard references in multiplicative number theory (e.g., Hardy--Wright; Montgomery--Vaughan) discuss factorization structures and their combinatorics. Our contribution here is to fix a specific affine reparametrization \((m,n)\mapsto (2m+3,2n+3)\) and to study collision behavior under a cancellation rule tied to multiplicity.
+The representation \(2F(m,n)+1=(2m+3)(2n+3)\) aligns with the classical parameterization of odd composites as products of odd integers. Standard references in multiplicative number theory (e.g., \cite{hardywright2008, montgomery2007}) discuss factorization structures and their combinatorics. Our contribution here is to fix a specific affine reparametrization \((m,n)\mapsto (2m+3,2n+3)\) and to study collision behavior under a cancellation rule tied to multiplicity.
 
 \section{Discussion}
 The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites. Lemma~\ref{lem:mod3} explains that no simple modulo-3 obstruction limits the image to two residue classes; all three occur.
@@ -148,5 +148,8 @@ python3 python/true_string_collision.py --max-m 120 --max-n 120 \
 # Coverage test: every odd composite c >= 9 is 2*F(m,n)+1
 python3 python/test_parametric_odd_composites.py 200000
 \end{lstlisting}
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
