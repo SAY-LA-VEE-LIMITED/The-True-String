@@ -93,6 +93,28 @@ Count & 2943 & 1513 & 1018 & 759 & 503 \\
 
 These profiles are parameter-dependent and intended as empirical summaries to guide further analysis.
 
+\section{Factorization identity and coverage}
+Define \(a=m+1\) and \(b=n+1\). Then
+\[
+F(m,n) = 4 + 3m + 3n + 2mn = 2ab + a + b,
+\]
+and consequently
+\[
+2F(m,n) + 1 = (2a+1)(2b+1) = (2m+3)(2n+3).
+\]
+
+\begin{theorem}[Odd composites via \(F\)]\label{thm:coverage}
+For every odd composite integer \(c\ge 9\), there exist \(m,n\in\mathbb{N}_0\) such that \(2F(m,n) + 1 = c\). Equivalently, \(F\) parameterizes exactly the indices \(x\) with \(2x+1\) odd composite.
+\end{theorem}
+\begin{proof}
+Write \(c=uv\) with \(u,v\) odd integers and \(3\le u\le v\). Set \(a=(u-1)/2\), \(b=(v-1)/2\), so \(a,b\in\mathbb{N}\). Let \(m=a-1\), \(n=b-1\). Then
+\(2F(m,n) + 1 = (2a+1)(2b+1) = uv = c\), as claimed. Conversely, any \((m,n)\) yields \(2F(m,n)+1=(2m+3)(2n+3)\), an odd composite \(\ge 9\).
+\end{proof}
+
+\begin{corollary}[Multiplicity and collisions]\label{cor:mult}
+Let \(x=F(m,n)\) and \(c=2x+1\). The number of preimages \((m,n)\) mapping to \(x\) equals the number of ordered odd factor pairs \((u,v)\) of \(c\) with \(u,v\ge 3\). In particular, squares \(c=u^2\) contribute a single ordered pair \((u,u)\), while non-squares contribute pairs \((u,v)\) and \((v,u)\), causing collisions under the cancellation scheme.
+\end{corollary}
+
 \section{Discussion}
 The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites. Lemma~\ref{lem:mod3} explains that no simple modulo-3 obstruction limits the image to two residue classes; all three occur.
 

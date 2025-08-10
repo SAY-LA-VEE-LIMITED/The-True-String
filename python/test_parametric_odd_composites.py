@@ -17,45 +17,29 @@ def primes_upto(limit: int) -> List[int]:
     return [i for i, is_p in enumerate(sieve) if is_p]
 
 
-def is_odd_composite(k: int, primes: List[int]) -> bool:
-    if k < 9 or k % 2 == 0:
-        return False
-    # quick primality using precomputed primes
+def least_prime_factor(k: int, primes: List[int]) -> int:
     for p in primes:
         if p * p > k:
             break
         if k % p == 0:
-            return True
-    # if no divisor found up to sqrt, it's prime
-    return False
+            return p
+    return k
 
 
-def covers_by_form(k: int) -> bool:
-    # Check existence of m, n >= 0 with k = 4 + 3m + 3n + 2mn
-    # For fixed m, solve for n: n = (k - 4 - 3m) / (2m + 3)
-    # Need integer n >= 0
-    m = 0
-    while True:
-        denom = 2 * m + 3
-        num = k - 4 - 3 * m
-        if denom <= 0:
-            m += 1
-            continue
-        if num < 0:
-            # for larger m, num decreases further; break
-            break
-        if num % denom == 0:
-            n = num // denom
-            if n >= 0:
-                return True
-        m += 1
-        # stop when denom exceeds num+denom lower bound
-        if denom > num + denom:
-            break
-        # simple guard to avoid infinite loops; bound m by sqrt scale
-        if m > int(math.sqrt(k)) + 3:
-            break
-    return False
+def is_odd_composite(k: int, primes: List[int]) -> bool:
+    if k < 9 or k % 2 == 0:
+        return False
+    lp = least_prime_factor(k, primes)
+    return lp != k
+
+
+def F_from_uv(u: int, v: int) -> int:
+    # Given odd factors u,v >= 3, compute m,n and F(m,n)
+    a = (u - 1) // 2
+    b = (v - 1) // 2
+    m = a - 1
+    n = b - 1
+    return 4 + 3*m + 3*n + 2*m*n
 
 
 def main():
@@ -67,13 +51,18 @@ def main():
     for k in range(9, MAX + 1, 2):  # odd numbers
         if is_odd_composite(k, primes):
             count += 1
-            if not covers_by_form(k):
+            p = least_prime_factor(k, primes)
+            u = p
+            v = k // p
+            # both u,v are odd >= 3 for odd composite k
+            F = F_from_uv(u, v)
+            if 2 * F + 1 != k:
                 misses.append(k)
                 if len(misses) <= 10:
-                    print(f"MISS: k={k}")
+                    print(f"MISS: k={k}, got 2F+1={2*F+1}")
     print(f"Checked odd composites up to {MAX}.")
     print(f"Total odd composites: {count}")
-    print(f"Misses by form 4+3m+3n+2mn: {len(misses)}")
+    print(f"Misses by 2F(m,n)+1 mapping: {len(misses)}")
     if misses:
         print(f"First few misses: {misses[:10]}")
 
