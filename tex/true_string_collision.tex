@@ -12,6 +12,7 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
 
 \begin{document}
 
@@ -51,6 +52,10 @@ Elements with \(T[x]=0\) are \emph{zeros} (collisions). Elements with \(T[x]=x\)
 For any \(x\), \(T[x]=0\) iff there exist distinct pairs \((m_1,n_1)\ne(m_2,n_2)\) with \(f(m_1,n_1)=f(m_2,n_2)=x\).
 \end{lemma}
 
+\begin{lemma}[Modulo-3 image]\label{lem:mod3}
+For all \(m,n\in\mathbb{N}_0\), \(f(m,n) \equiv 1 + 2mn \pmod{3}\). As \(mn\) ranges over \(\{0,1,2\}\pmod{3}\), the image attains all residue classes \(0,1,2\pmod{3}\). In particular, values congruent to \(2\pmod{3}\) occur when, e.g., \(m\equiv 1\) and \(n\equiv 2\) (or vice versa) modulo 3.
+\end{lemma}
+
 \begin{lemma}[Sparse image]\label{lem:sparse}
 The image of \(f\) is a strict subset of \(\mathbb{N}\). Many odd composites are not represented by \(f\). This is readily verified computationally.
 \end{lemma}
@@ -63,7 +68,7 @@ python3 python/true_string_collision.py --max-m 200 --max-n 200 --list-first 20
 \end{lstlisting}
 
 \section{Discussion}
-The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites.
+The collision-zero model encodes multiplicity within the image of \(f\). Since \(f\) does not cover all odd composites (Lemma~\ref{lem:sparse}), this model should be viewed as a structured subset rather than a complete characterization of primes or composites. Lemma~\ref{lem:mod3} explains that no simple modulo-3 obstruction limits the image to two residue classes; all three occur.
 
 \section{Conclusion}
 We formalized and implemented the collision-zero encoding for \(f(m,n)\). The model provides a lens on multiplicity but does not, as formulated, prove statements about the zeros of \(\zeta(s)\).

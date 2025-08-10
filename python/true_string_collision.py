@@ -41,7 +41,6 @@ def generate_counts(max_m: int, max_n: int) -> Dict[int, int]:
 def summarize(counts: Dict[int, int]) -> Tuple[int, int, int, int]:
     total = len(counts)
     collisions = sum(1 for v in counts.values() if v >= 2)
-    uniques = total - collisions
     unique_primes = 0
     unique_nonprimes = 0
     for x, c in counts.items():
@@ -51,6 +50,20 @@ def summarize(counts: Dict[int, int]) -> Tuple[int, int, int, int]:
             else:
                 unique_nonprimes += 1
     return total, collisions, unique_primes, unique_nonprimes
+
+
+def mod3_distribution(counts: Dict[int, int]) -> Tuple[int, int, int]:
+    # among distinct outputs (keys of counts)
+    r0 = r1 = r2 = 0
+    for x in counts.keys():
+        r = x % 3
+        if r == 0:
+            r0 += 1
+        elif r == 1:
+            r1 += 1
+        else:
+            r2 += 1
+    return r0, r1, r2
 
 
 def main():
@@ -68,6 +81,9 @@ def main():
     print(f"Collision values (count>=2) : {collisions}")
     print(f"Unique primes               : {unique_primes}")
     print(f"Unique non-primes           : {unique_nonprimes}")
+
+    r0, r1, r2 = mod3_distribution(counts)
+    print(f"Modulo 3 distribution among distinct outputs: r0={r0}, r1={r1}, r2={r2}")
 
     if args.list_first > 0:
         items = sorted(counts.items())[:args.list_first]
